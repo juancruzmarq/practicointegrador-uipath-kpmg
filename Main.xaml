@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="865,4645" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="865,5812" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="66">
       <x:String>System.Activities</x:String>
@@ -72,12 +72,16 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Inicio de proceso " sap:VirtualizedContainerService.HintSize="554,4580" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Inicio de proceso " sap:VirtualizedContainerService.HintSize="554,6268" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Default="[strRootPath + &quot;\Input\Compras-coronavirus.xlsx&quot;]" Name="strPath" />
+      <Variable x:TypeArguments="x:String" Name="strPath">
+        <Variable.Default>
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="strRootPath + &quot;Input\Compras-coronavirus.xlsx&quot;" />
+        </Variable.Default>
+      </Variable>
       <Variable x:TypeArguments="x:String" Name="strRootPath">
         <Variable.Default>
-          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Environment.CurrentDirectory.ToString" />
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Directory.GetCurrentDirectory().ToString" />
         </Variable.Default>
       </Variable>
       <Variable x:TypeArguments="sd:DataTable" Name="dtCompras" />
@@ -85,7 +89,11 @@
       <Variable x:TypeArguments="scg:List(x:String)" Name="listJurisdicciones" />
       <Variable x:TypeArguments="x:Int32" Name="intCantidadProveedores" />
       <Variable x:TypeArguments="x:Double" Default="0" Name="dblSuma" />
-      <Variable x:TypeArguments="x:String" Default="[strRootPath + &quot;Intput\Reporte_%Año%_%Jurisdiccion%.xlsx&quot;]" Name="outPath" />
+      <Variable x:TypeArguments="x:String" Name="outPath">
+        <Variable.Default>
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="strRootPath + &quot;Intput\&quot;" />
+        </Variable.Default>
+      </Variable>
       <Variable x:TypeArguments="x:String" Default="[Date.Now.ToString(&quot;yyyy/MM/dd&quot;)]" Name="strDateNow" />
       <Variable x:TypeArguments="x:String" Name="strNombre">
         <Variable.Default>
@@ -93,14 +101,11 @@
         </Variable.Default>
       </Variable>
       <Variable x:TypeArguments="x:Int32" Name="intIImporte" />
-      <Variable x:TypeArguments="x:String" Name="variable1" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtJurisdiccion" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtProveedores" />
       <Variable x:TypeArguments="x:String" Name="intCantProveedores" />
       <Variable x:TypeArguments="x:String" Default="2020" Name="strYear" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtSinDuplicados" />
-      <Variable x:TypeArguments="x:String" Default="[strRootPath + &quot;\Output\&quot;]" Name="strTemplatePath" />
-      <Variable x:TypeArguments="sd:DataTable" Name="dtImportes" />
       <Variable x:TypeArguments="x:Double" Name="dblImporte" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -110,31 +115,47 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="512,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Leer archivo Compras-coronavirus - START&quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="512,260" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="Input\Compras-coronavirus.xlsx">
-      <ui:ExcelApplicationScope.Body>
-        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,151" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ui:ExcelReadRange AddHeaders="True" DataTable="[dtCompras]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="Sheet1">
-              <ui:ExcelReadRange.Range>
-                <InArgument x:TypeArguments="x:String">
-                  <Literal x:TypeArguments="x:String" Value="" />
-                </InArgument>
-              </ui:ExcelReadRange.Range>
-            </ui:ExcelReadRange>
-          </Sequence>
-        </ActivityAction>
-      </ui:ExcelApplicationScope.Body>
-    </ui:ExcelApplicationScope>
+    <ui:CommentOut sap2010:Annotation.AnnotationText="Se abre el archivo excel para extraer los datos&#xD;&#xA;" DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="512,474" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="476,352" sap2010:WorkflowViewState.IdRef="Sequence_10">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,260" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" WorkbookPath="[strPath]">
+            <ui:ExcelApplicationScope.Body>
+              <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,151" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:ExcelReadRange AddHeaders="True" DataTable="[dtCompras]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_1" SheetName="Sheet1">
+                    <ui:ExcelReadRange.Range>
+                      <InArgument x:TypeArguments="x:String">
+                        <Literal x:TypeArguments="x:String" Value="" />
+                      </InArgument>
+                    </ui:ExcelReadRange.Range>
+                  </ui:ExcelReadRange>
+                </Sequence>
+              </ActivityAction>
+            </ui:ExcelApplicationScope.Body>
+          </ui:ExcelApplicationScope>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="512,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Filtrado por año 2020&quot;]" />
-    <ui:FilterDataTable DataTable="[dtCompras]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="512,160" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dtFiltradoFecha]" SelectColumnsMode="Keep">
+    <ui:FilterDataTable DataTable="[dtCompras]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="512,162" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dtFiltradoFecha]" SelectColumnsMode="Keep">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument BooleanOperator="And" Operator="CONTAINS">
@@ -172,13 +193,14 @@
     <AddToCollection x:TypeArguments="x:String" Collection="[listJurisdicciones]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="512,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="MINISTERIO DE SALUD" />
     <AddToCollection x:TypeArguments="x:String" Collection="[listJurisdicciones]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="512,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_3" Item="MINISTERIO DE DESARROLLO ECONÓMICO Y PRODUCCIÓN" />
     <AddToCollection x:TypeArguments="x:String" Collection="[listJurisdicciones]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="512,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_4" Item="MINISTERIO DE JUSTICIA Y SEGURIDAD" />
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="512,3210" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[listJurisdicciones]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="512,93" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Iteracion para cada jurisdiccion&quot;]" />
+    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Se itera para cada jurisdiccion y se extraen los datos necesarios&#xD;&#xA;Nombre, fecha, proveedores, importe, cantidad, cuit, descripcion.&#xD;&#xA;En otra tabla se eliminan los duplicados para obtener la cantidad de proveedores&#xD;&#xA;" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="512,4416" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[listJurisdicciones]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,3085" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,4215" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
               <Variable x:TypeArguments="sd:DataTable" Name="dtFinal" />
             </Sequence.Variables>
@@ -187,6 +209,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Filtrado para obtener los proveedores&quot;]" />
             <ui:FilterDataTable DataTable="[dtFiltradoFecha]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="FilterDataTable_2" OutputDataTable="[dtJurisdiccion]" SelectColumnsMode="Keep">
               <ui:FilterDataTable.Filters>
                 <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
@@ -213,6 +236,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:FilterDataTable>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Filtrado para obtener tabla final&quot;]" />
             <ui:FilterDataTable DataTable="[dtFiltradoFecha]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="FilterDataTable_5" OutputDataTable="[dtFinal]" SelectColumnsMode="Keep">
               <ui:FilterDataTable.Filters>
                 <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
@@ -238,33 +262,7 @@
                 </scg:List>
               </ui:FilterDataTable.SelectColumns>
             </ui:FilterDataTable>
-            <ui:FilterDataTable DataTable="[dtFiltradoFecha]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="FilterDataTable_4" OutputDataTable="[dtImportes]" SelectColumnsMode="Keep">
-              <ui:FilterDataTable.Filters>
-                <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
-                  <ui:FilterOperationArgument BooleanOperator="And" Operator="EQ">
-                    <ui:FilterOperationArgument.Column>
-                      <InArgument x:TypeArguments="x:String">["jurisdiccion"]</InArgument>
-                    </ui:FilterOperationArgument.Column>
-                    <ui:FilterOperationArgument.Operand>
-                      <InArgument x:TypeArguments="x:String">[item.ToString]</InArgument>
-                    </ui:FilterOperationArgument.Operand>
-                  </ui:FilterOperationArgument>
-                </scg:List>
-              </ui:FilterDataTable.Filters>
-              <ui:FilterDataTable.SelectColumns>
-                <scg:List x:TypeArguments="InArgument" Capacity="4">
-                  <InArgument x:TypeArguments="x:String">["jurisdiccion"]</InArgument>
-                  <InArgument x:TypeArguments="x:String">["proveedor"]</InArgument>
-                  <InArgument x:TypeArguments="x:String">["importe"]</InArgument>
-                </scg:List>
-              </ui:FilterDataTable.SelectColumns>
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </ui:FilterDataTable>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Remover duplicados / obtener cant proveedores&quot;]" />
             <ui:RemoveDuplicateRows DataTable="[dtJurisdiccion]" DisplayName="Remove Duplicate Rows" sap:VirtualizedContainerService.HintSize="434,80" sap2010:WorkflowViewState.IdRef="RemoveDuplicateRows_2" OutputDataTable="[dtProveedores]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -281,7 +279,8 @@
                 <InArgument x:TypeArguments="x:Int32">[dtProveedores.Rows.Count]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtImportes]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="434,501" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Calcular importe total&quot;]" />
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Para cada fila se extrae el valor del importe y se calcula el total sobre la jurisdiccion &#xD;&#xA;" DataTable="[dtFinal]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="434,561" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
@@ -309,8 +308,14 @@
                   </Sequence>
                 </ActivityAction>
               </ui:ForEachRow.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ForEachRow>
-            <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,281" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_4" InstanceCachePeriod="3000" WorkbookPath="Input\Reporte_%Año%_%Jurisdiccion%.xlsx">
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;Se copia el sheet del template&quot;]" />
+            <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Se copia el sheet del resumen del archivo original Reporte_%Año%_%Jurisdiccion%.xlsx" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,325" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_4" InstanceCachePeriod="3000" WorkbookPath="[strRootPath + &quot;\Input\Reporte_%Año%_%Jurisdiccion%.xlsx&quot;]">
               <ui:ExcelApplicationScope.Body>
                 <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                   <ActivityAction.Argument>
@@ -326,8 +331,14 @@
                   </Sequence>
                 </ActivityAction>
               </ui:ExcelApplicationScope.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ExcelApplicationScope>
-            <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,1050" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" InstanceCachePeriod="3000" WorkbookPath="[&quot;C:\Users\marqu\Documents\UiPath\PracticoIntegrador1\Output&quot; + &quot;\Reporte_&quot; + strYear + &quot;_&quot; + item.ToString]">
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Se escribe el archivo excel&quot;]" />
+            <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="Se graban los datos obtenidos en el archivo correspondiente &#xD;&#xA;" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,1094" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" InstanceCachePeriod="3000" WorkbookPath="[strRootPath + &quot;\Output&quot; + &quot;\Reporte_&quot; + strYear + &quot;_&quot; + item.ToString]">
               <ui:ExcelApplicationScope.Body>
                 <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                   <ActivityAction.Argument>
@@ -398,19 +409,43 @@
                   </Sequence>
                 </ActivityAction>
               </ui:ExcelApplicationScope.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ExcelApplicationScope>
-            <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;Reset variable dblSuma&quot;]" />
+            <Assign sap2010:Annotation.AnnotationText="Se resetea la variable para que la suma se vuelva a calcular en otra jurisdiccion&#xD;&#xA;" sap:VirtualizedContainerService.HintSize="434,120" sap2010:WorkflowViewState.IdRef="Assign_4">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">[dblSuma]</OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:Double">0</InArgument>
               </Assign.Value>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <ui:WriteRange AddHeaders="True" DataTable="[dtFinal]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="434,115" sap2010:WorkflowViewState.IdRef="WriteRange_10" SheetName="Detalle" StartingCell="A1" WorkbookPath="[&quot;C:\Users\marqu\Documents\UiPath\PracticoIntegrador1\Output&quot; + &quot;\Reporte_&quot; + strYear + &quot;_&quot; + item.ToString +&quot;.xlsx&quot;]" />
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,93" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Info" Message="[&quot;Se escribe el dtFinal&quot;]" />
+            <ui:WriteRange AddHeaders="True" sap2010:Annotation.AnnotationText="Se escribe la DataTable final con fecha, jurisdiccion,. proveedores, cuit , importe y cantidad&#xD;&#xA;" DataTable="[dtFinal]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="434,175" sap2010:WorkflowViewState.IdRef="WriteRange_10" SheetName="Detalle" StartingCell="A1" WorkbookPath="[strRootPath + &quot;\Output&quot; + &quot;\Reporte_&quot; + strYear + &quot;_&quot; + item.ToString +&quot;.xlsx&quot;]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:WriteRange>
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="512,93" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Fin del processo - END&quot;]" />
   </Sequence>
 </Activity>
